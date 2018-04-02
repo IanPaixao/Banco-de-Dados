@@ -1,0 +1,618 @@
+Relatório Banco De Dados Ian Rodrigues dos Reis Paixão Matricula:561290
+
+1)
+Create table Pais
+  (codPai int not null,
+  NomPai char(35) not null,
+  Constraint PK_Pais primary key (CodPai));
+
+2)
+Desc Pais 
+
+3)
+insert into Pais  values (1,'Brasil'); 
+
+insert into Pais  values (2,'Argentina'); 
+
+insert into Pais  values (3,'Portugal');
+
+insert into Pais  values (4,'Cuba');
+
+insert into Pais  values (5,'EUA');
+
+insert into Pais  values (6,'Canadá'); 
+
+insert into Pais  values (7,'Venezuela');   
+
+commit;
+
+Select *
+  from Pais;
+
+4) Testando Primary key
+em sala de aula com o professor
+
+5) Aprendendo sobre roolback e commit
+em sala de aula com o professor
+
+6) Aprendendo a modificar valores de dados
+em sala de aula com o professor
+
+
+7)
+Select CodPai, 
+ NomPai from Pais order by NomPai; 
+
+8)
+Select CodPai,
+ NomPai from Pais order by NomPai desc;
+
+9)
+Select CodPai,
+ NomPai from Pais where NomPai like '%nadá%'; 
+
+10)
+Select CodPai,
+ NomPai from Pais where CodPai in (1, 3, 5);
+
+12)
+create table Autor
+  (CodAut int not null,
+  NomAut char(35) not null,
+  CodPai int not null,
+  constraint PK_Autor primary key (CodAut),
+  constraint FK_Autor_Pais
+  foreign key (CodPai)
+  references Pais);
+
+
+desc Autor;
+
+insert into Autor values ( 1,'José Lins do Rego',1);
+
+insert into Autor values (2,'José Mauro de Vasconcelos',1);
+
+insert into Autor values (3,'Shamkant B. Navathe',5);
+
+insert into Autor values (4,'Ramez Elmasri',5);
+
+insert into Autor values (5,'Pablo Neruda',3);
+
+insert into Autor values (6, 'Machado de Assis', 1); 
+
+insert into Autor values (7, 'José Santos', 1); 
+
+insert into Autor values (8, 'Maria José Duprê', 1); 
+
+insert into Autor values (9, 'José de Alencar', 1);
+
+insert into Autor values (10, 'Jô Soares', 1);
+
+commit;
+
+select * 
+from Autor; 
+
+select * 
+from Autor order by NomAut; 
+
+select * from Autor 
+order by CodPai, NomAut;
+
+create table TipoUsuario 
+(TipUsu char (1) not null, 
+ DesTipUsu char (15) not null, 
+ constraint PK_Tipo_usuario primary Key (TipUsu));
+
+desc tipoUsuario; 
+
+insert into Tipousuario values ('A', 'Aluno');
+
+insert into Tipousuario values ('F', 'Funcionario');
+
+insert into Tipousuario values ('P', 'Professor');
+
+insert into Tipousuario values ('V', 'Visitante');
+
+commit; 
+
+Select * from tipousuario; 
+
+13)
+create table TipoObra 
+(tipObr number not null, 
+ DesTipObr char(25) not null, 
+ constraint PK_Tipo_Obra primary Key (TipObr));
+
+insert into TipoObra values (1, 'Periodico Cientifico');
+
+insert into TipoObra values (2, 'Ficção');
+
+insert into TipoObra values (3, 'Literatura');
+
+insert into TipoObra values (4, 'Obra Cientifica');
+
+commit; 
+
+select * from tipoobra; 
+
+14)
+select * 
+from Autor; 
+
+insert into Autor values ( 11,'Clarice Lispector',1);
+
+insert into Autor values ( 12,'Erico Verissimo',1);
+
+insert into Autor values ( 13,'Ernesto Sábato',2);
+
+insert into Autor values ( 14,'Liliana Bodoc',2);
+
+insert into Autor values ( 15,'José Saramago',3);
+
+insert into Autor values ( 16,'Lídia Jorge',3);
+
+insert into Autor values ( 17,'Virgilio Piñera',4);
+
+insert into Autor values ( 18,'José Martí',4);
+
+insert into Autor values ( 19,'F. Scott Fitzgerald',5);
+
+insert into Autor values ( 20,'Edgar Allan Poe',5);
+
+insert into Autor values ( 21,'Margaret Atwood',6);
+
+insert into Autor values ( 22,'Yann Martel',6);
+
+insert into Autor values ( 23,'César Miguel Rondón',7);
+
+insert into Autor values ( 24,'Rosa Del Olmo',7);
+
+commit;
+
+select NomPai, NomAut 
+ from Pais natural join Autor 
+ order by NomPai, NomAut;
+
+select Pais.CodPai, NomPai, NomAut 
+ from Pais join Autor 
+ on Pais.codPai = Autor.CodPai 
+ order by NomPai, NomAut;
+
+15)
+Create table Unidade
+(CodUni number (2) not null, 
+ NomUni char (30) not null,
+ constraint PK_Unidade primary key (CodUni));
+
+insert into Unidade values (1, 'Coração Eucarístico'); 
+
+insert into Unidade values (2, 'Betim');  
+
+insert into Unidade values (3, 'São Gabriel');  
+
+insert into Unidade values (4, 'Barreiro');  
+
+
+insert into Unidade values (5, 'Poços de Caldas');   
+
+Select * from Unidade; 
+Select CodUni, NomUni 
+from Unidade
+order by NomUni; 
+
+Create table Curso
+(CodCur number (2) not null,
+ NomCur char (25) not null,
+ CodUni number (2) not null, 
+ constraint PK_Curso primary key (CodCur),
+ constraint FK_Curso_Unidade foreign key (CodUni) references Unidade);
+
+desc curso; 
+
+insert into Curso values (1,'Sistemas de Informação', 4);
+
+insert into Curso values (2,'Psicologia',1);
+
+insert into Curso values (3,'História', 1);
+
+insert into Curso values (4,'Sociologia', 1);
+
+insert into Curso values (5,'Letras', 1);
+
+insert into Curso values (6,'Ciência da Computação', 1);
+
+insert into Curso values (7,'Engenharia da Computação', 3);
+
+insert into Curso values (8,'Física', 1);
+
+insert into Curso values (9,'Administração de Empresa', 4);
+
+insert into Curso values (10,'Direito', 2);
+
+commit; 
+ 
+Select * 
+from curso; 
+
+insert into Curso values (11,'Ciência da Informação', 2);
+
+insert into Curso values (12,'Engenharia de Alimentos', 4);
+
+insert into Curso values (13,'Jogos Digitais', 3);
+
+insert into Curso values (14,'Gastronomia', 1);
+
+insert into Curso values (15,'Relações Internacionais', 1);
+
+commit;
+
+16)
+create table Usuario
+(CodUsu number (2) not null,
+ NomUsu char (35) not null,
+ SexUsu char (1) not null,
+ CodCur number (2) not null,
+ TipUsu char (1) not null,
+ constraint PK_Usuario primary key (CodUsu),
+ constraint FK_Usuario_Curso foreign key (CodCur) references Curso, 
+ constraint FK_Usuario_tipo foreign key (TipUsu) references TIpoUsuario, 
+ constraint CK_SexUsu check (SexUsu in ('F', 'M')));
+
+insert into Usuario values (1,'Maria Luiza Pereira','F',1,'P');
+
+insert into Usuario values (2,'Mário José Silveira','M',1,'P');
+
+insert into Usuario values (3,'Dalmo Lucas jardim','M',2,'A');
+
+insert into Usuario values (4,'Helena Albuquerque','F',2,'A');
+
+insert into Usuario values (5,'Juarez Perez','M',3,'F');
+
+insert into Usuario values (6,'Saulo Castro Silva','M',2,'P');
+
+insert into Usuario values (7,'Lucas Rodrigo Arantes','M',3,'P');
+
+insert into Usuario values (8,'Cíntia Maria Silva ','F',6,'A');
+
+insert into Usuario values (9,'Cecília Andrade Albuquerque','F',8,'A');
+
+insert into Usuario values (10,'Renato Paula Braga','M',2,'A');
+
+insert into Usuario values (11,'Rafael Andrade','M',3,'A');
+
+insert into Usuario values (12,'José Marcos Silva','M',3,'F');
+
+insert into Usuario values (13,'Maria Eduarda de Silva Santos','F',2,'F');
+
+insert into Usuario values (14,'Luz Maria Pellegrini','F',2,'P');
+
+insert into Usuario values (15,'Leandro Paula Braga','M',1,'P');
+
+insert into Usuario values (16,'Lucas Faria','M',1,'A');
+
+insert into Usuario values (17,'Renata Gonzalez Albuquerque e Silva','F',7,'P');
+
+insert into Usuario values (18,'Cassia Abrantes Juarez','F',3,'A');
+
+insert into Usuario values (19,'Luiz Gustavo Pontes','M',1,'P');
+
+insert into Usuario values (20,'Lauro Samuel Andrade','M',1,'F');
+
+commit; 
+
+select * 
+ from usuario;
+
+17)
+insert into Usuario values (21,'Ian Rodrigues dos Reis Paixão','M',6,'A');
+
+commit; 
+
+select * 
+ from usuario;
+
+insert into Usuario values (22,'Henrique Gomes','M',5,'F'); 
+insert into Usuario values (23,'Lucca Lima','M',10,'P'); 
+insert into Usuario values (24,'Vinicius Silva','M',11,'A');
+insert into Usuario values (25,'Eduardo Figueira','M',15,'F'); 
+insert into Usuario values (26,'Samuel Pilar','M',2,'A'); 
+insert into Usuario values (27,'Lucas Dias','M',14,'P');
+insert into Usuario values (28,'Henrique De Novais','M',8,'A'); 
+insert into Usuario values (29,'Leonardo Morais','M',8,'P');
+insert into Usuario values (30,'Samuel Campos','M',4,'F');
+insert into Usuario values (31,'Afonso De Novais','M',11,'A'); 
+
+insert into Usuario values (32,'Clarice Oliveira ','F',8,'P');               
+insert into Usuario values (33,'Isis Bernardes','F',14,'P'); 
+insert into Usuario values (34,'Ana Oliveira','F',9,'P');  
+insert into Usuario values (35,'Larissa Martinele','F',2,'A');
+insert into Usuario values (36,'Rafaela Pilar','F',2,'P');
+insert into Usuario values (37,'Larissa Galsteu','F',2,'A');
+insert into Usuario values (38,'Yasmin Chaves','F',2,'F');
+insert into Usuario values (39,'Vitória Carvalho','F',11,'A'); 
+insert into Usuario values (40,'Maria Vasconcelos','F',9,'P');
+insert into Usuario values (41,'Vitória Frias','F',1,'A');
+
+commit; 
+
+select * 
+ from usuario;
+
+select codusu, nomUsu, Sexusu
+from usuario
+order by NomUsu; 
+
+
+select codusu, nomUsu, Sexusu
+from usuario
+order by SexUsu, NomUsu;
+
+18)     
+insert into Usuario values (42,'Luiza Guimarães','F',8,'P');
+insert into Usuario values (43,'Lorena Guimarães','F',14,'A');
+insert into Usuario values (44,'Carlos Pereira','M',9,'A');
+insert into Usuario values (45,'Camila Moraes','F',6,'F');
+insert into Usuario values (46,'Lorenzo martins','M',10,'F');
+
+Commit; 
+Select CodUsu, NomUsu, SexUsu from usuario; 
+
+19)
+create table Obra
+(CodObr number (2) not null,
+ NomObr char (35) not null,
+ TipObr number (1) not null,
+ constraint PK_Obra primary key (CodObr),
+ constraint FK_Obra_TipoObra foreign key (TipObr) references TipoObra);
+
+desc obra; 
+
+insert into Obra values (1,'Estado de Minas',1);
+insert into Obra values (2,'IEEC',3);
+insert into Obra values (3,'Sistemas de Banco de Dados',2);
+insert into Obra values (4,'Luna Brava',3);
+insert into Obra values (5,'Entidade e Relacionamentos',2);
+insert into Obra values (6,'Vinte poemas de Amor',3);
+insert into Obra values (7,'Canção General',3);
+insert into Obra values (8,'Cem sonetos de Amor',3);
+insert into Obra values (9,'Meu pé de Laranja Lima',2);
+insert into Obra values (10,'Doidão',2);
+insert into Obra values (11, 'Menino do Engenho', 3);
+insert into Obra values (12,'Doidinho',3);
+insert into Obra values (13,'Iracema',3);
+insert into Obra values (14,'O Guarani',3);
+insert into Obra values (15,'Senhora',3);
+insert into Obra values (16,'Lucíola', 3);
+insert into Obra values (17,'A pata da Gazela',3);
+insert into Obra values (18,'Encarnação',3);
+insert into Obra values (19,'Luz e Sombra',3);
+insert into Obra values (20,'Os Rodrigues',3);
+insert into Obra values (21,'D. Lola',3);
+insert into Obra values (22,'O Estado de São Paulo',1);
+insert into Obra values (23,'A Folha de São Paulo',3);
+insert into Obra values (24,'Jardín de invierno',3);
+insert into Obra values (25,'Tentativa del hombre infinito',3);
+insert into Obra values (26,'Crepuscularioo',3);
+
+commit; 
+
+Select CodObr, NomObr from Obra order by NomObr;
+
+20)
+insert into Obra values (27,'O Grande Gatsby',3);
+insert into Obra values (28,'O Gato Preto',3);
+insert into Obra values (29,'A Hora da Estrela',3);
+insert into Obra values (30,'O Continente',3);
+insert into Obra values (31,'Todos Os Nomes',3);
+
+commit; 
+Select * from obra; 
+
+21)
+Create table Autoria
+(CodObr number(2) not null,
+ CodAut number(2) not null,
+ constraint PK_Autoria primary key (CodObr, CodAut),
+ constraint  FK_Autoria_Autor foreign key (CodAut) references Autor,
+ constraint FK_Autor_Obra foreign key (CodObr) references Obra on delete cascade);
+
+insert into Autoria values (12, 1); 
+insert into Autoria values (11, 1);
+insert into Autoria values (3, 4); 
+insert into Autoria values (6, 5);
+insert into Autoria values (7, 5);
+insert into Autoria values (8,5);
+insert into Autoria values (3,3); 
+insert into Autoria values (13, 7);
+insert into Autoria values (14, 7);
+insert into Autoria values (15, 7);
+insert into Autoria values (16, 7);
+insert into Autoria values (10, 2);
+insert into Autoria values (9, 2);
+insert into Autoria values (4, 2);
+insert into Autoria values (24, 5);
+insert into Autoria values (25, 5);
+insert into Autoria values (26, 5);
+insert into Autoria values (19, 8);
+insert into Autoria values (20, 8);
+insert into Autoria values (21, 8);
+insert into Autoria values (17, 7);
+insert into Autoria values (18, 7);
+
+commit; 
+
+22)
+select NomObr, NomAut 
+from Autor natural join 
+Autoria natural join Obra
+Order by NomObr;         
+
+23)
+insert into Autoria values (27,19); 
+insert into Autoria values (28,20); 
+insert into Autoria values (29,11); 
+insert into Autoria values (30,12);
+insert into Autoria values (31,15);  
+
+commit;
+
+select NomObr, NomAut 
+from Autor natural join 
+Autoria natural join Obra
+Order by NomObr;
+
+24) Experimentando a integridade referencial
+
+delete from Autor where CodAut = 3;
+
+Como reagiu o sgbd? 
+temos o autor 3 registrado com autoria de um livro, e como não se pode
+apagar o autor sem se apagar o livro, o sgbd nos alerta sobre essa questão,
+em outras palavras , o sgbd nos alerta sobre a integridade refencial do autor que estamos tentando remover. 
+
+25)
+create table Editora
+(CodEdi number(2) not null,
+ NomEdi char(35) not null,
+ constraint PK_Editora primary key (CodEdi));
+
+desc editora; 
+insert into Editora values (1, 'Editora Atlas');
+insert into Editora values (2, 'Editora FTC');
+insert into Editora values (3, 'Editora LTC');
+insert into Editora values (4, 'Editora Vozes');
+insert into Editora values (5, 'Editora Cascais');
+insert into Editora values (6, 'Ediouro');
+insert into Editora values (7, 'Editora Cortez');
+insert into Editora values (8, 'Brasiliense');
+insert into Editora values (9, 'Editora Ateliê');
+insert into Editora values (10, 'Editora Ática');
+
+
+commit; 
+
+select * from editora; 
+
+select Nomedi, CodEdi from editora
+order by nomedi; 
+
+26)
+insert into Editora values (11, 'Editora Verus');
+insert into Editora values (12, 'Editora Record');
+insert into Editora values (13, 'Editora darkside');
+
+commit; 
+
+select * from editora; 
+
+select Nomedi, CodEdi from editora
+order by nomedi; 
+
+27)
+create table Exemplar
+(NumExe number(2) not null,
+ CodObr number(2) not null,
+ AnoEdi number(4) not null,
+ CodEdi number(2) not null, 
+ CodUni number(2) not null, 
+ ValExe number(6,2) not null,
+ constraint PK_Exemplar primary key (NumExe),
+ constraint FK_Exemplar_Editora foreign key (CodEdi) references Editora, 
+ constraint FK_Exemplar_Obra foreign key (CodObr) references Obra,
+ constraint FK_Exemplar_Unidade foreign key (CodUni) references Unidade;
+
+desc exemplar; 
+
+insert into Exemplar values(1, 1, 2009, 1, 1, 120.50);
+insert into Exemplar values(2, 1, 2010, 1, 1, 110);
+insert into Exemplar values(3, 1, 2011, 1, 2, 110.30);
+insert into Exemplar values(4, 1, 2011, 1, 2, 130);
+insert into Exemplar values(5, 1, 2009, 2, 3, 80.80);
+insert into Exemplar values(10, 2, 2008, 2, 1, 90);
+insert into Exemplar values(6, 2, 2010, 3, 1, 80.80);
+insert into Exemplar values(7, 3, 2011, 3, 1, 50);
+insert into Exemplar values(8, 3, 2012, 5, 2, 70.90);
+insert into Exemplar values(9, 3, 2009, 3, 4, 50);
+
+commit;
+ 
+28)
+insert into Exemplar values(11,27,2010,13,1,80.00);
+insert into Exemplar values(12,5,2015,1,1,80.80);
+insert into Exemplar values(13,19,2000,4,3,110.00);
+insert into Exemplar values(14,16,2008,3,1,90.00);
+insert into Exemplar values(15,1,2005,7,5,130.00);
+insert into Exemplar values(16,2,2007,10,4,50.00);
+insert into Exemplar values(17,3,2018,9,3,75.50);
+insert into Exemplar values(18,4,2002,2,3,85.50);
+insert into Exemplar values(19,5,2000,3,2,90.50);
+insert into Exemplar values(20,6,2014,2,2,119.90);
+insert into Exemplar values(21,19,2011,7,4,99.00);
+insert into Exemplar values(22,3,2016,3,3,50.00);
+insert into Exemplar values(23,22,2001,3,1,100.00);
+insert into Exemplar values(24,23,2003,9,3,120.00);
+insert into Exemplar values(25,15,2006,6,5,65.00);
+insert into Exemplar values(26,7,2000,7,1,70.00);
+insert into Exemplar values(27,8,2017,11,4,90.50);
+insert into Exemplar values(28,4,2004,10,4,79.90);
+insert into Exemplar values(29,6,2001,4,2,89.90);
+insert into Exemplar values(30,23,2018,9,1,70.50);
+
+commit;
+
+29)
+create table Emprestimo
+(codUsu number(2) not null,
+ NumExe number(2) not null,
+ DatEmp date default sysdate,
+ DatPreDev date default (sysdate + 10),
+ DatDev date,
+ constraint PK_Emprestimo primary key (codUsu, NumExe, DatEmp),
+ constraint FK_Emprestimo_Exemplar foreign key (NumExe) references Exemplar,
+ constraint FK_Emprestimo_Usuario foreign key (codUsu) references Usuario,
+ constraint CK_DatDev check (DatDev is null or DatDev >= DatEmp));
+ 
+desc emprestimo; 
+
+
+alter session set nls_date_format='ddmmyyyy';
+
+insert into Emprestimo values (1, 2, '01092009', '11092009', '08092009');
+insert into Emprestimo values (3, 1, default, default, null);
+insert into Emprestimo values (2, 2, '01092010', '11092010', '08092010');
+insert into Emprestimo values (4, 5, default, default, null);
+insert into Emprestimo values (4, 2, '01092011', '11092011', '08092011');
+insert into Emprestimo values (3, 1, '01012013', '10012013', '08012013');
+insert into Emprestimo values (1, 2, '01022012', '11022012', '08022012');
+insert into Emprestimo values (3, 3, '01092011', '11092011', '08092011');
+insert into Emprestimo values (2, 3, '01012012', '11012012', '08012012');
+insert into Emprestimo values (1, 4, '01032012', '11032012', '08032012');
+insert into Emprestimo values (1, 8, '01102011', '11102011', '08102011');
+
+
+select * 
+from Emprestimo;
+
+30) Experimente o comando abaixo, veja e explique o erro: 
+X insert into Emprestimo values (4, 2, '10092009', default, '08092009');
+o erro ocorre pela ausencia da data de devolução prevista e a presença de uma data de devolução
+
+31)
+insert into Emprestimo values (21,11, '25022018', '25032018', '20032018');
+insert into Emprestimo values (21,7, '10022018', '10032018', '10032018');
+insert into Emprestimo values (36,13, '01092009', '15092009', '08092009');
+insert into Emprestimo values (20,2, default, default, null);
+insert into Emprestimo values (6,3, '01092009', '11092009', null);
+insert into Emprestimo values (32,5, '10042010', '20052010', '08052010');
+insert into Emprestimo values (21,21, '25032018', '25042018', null);
+insert into Emprestimo values (12,22, '25032009', '25042009', 30042009);
+insert into Emprestimo values (13,1, '20042010', '20052010', '08052010');
+insert into Emprestimo values (10,5, '25042017', '25052017', '05052017');
+insert into Emprestimo values (2,5, '30052015', '25062015', '15062015');
+insert into Emprestimo values (8,8, '25042010', '25052010', '05052010');
+insert into Emprestimo values (11,4, '20042012', '25052012', '10052012');
+insert into Emprestimo values (3,2, '25042014', '25052014', '05052014');
+insert into Emprestimo values (10,5, '05062016', '10072016', '09072016');
+insert into Emprestimo values (15,5, 'default', 'default', null);
+
