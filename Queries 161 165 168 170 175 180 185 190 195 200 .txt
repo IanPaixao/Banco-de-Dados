@@ -1,0 +1,220 @@
+Ian Rodrigues Dos reis Paix„o
+matrÌcula : 561290
+
+ 161) O valor medio por modelo para automoveis fabricados em 2018
+
+SELECT AVG(ValVei)
+    FROM emplacamento NATURAL JOIN veiculo
+                      NATURAL JOIN Modelo
+    WHERE AnoFab >= 2018
+    AND AnoFab <= 2018;
+
+AVG(VALVEI)
+-----------
+ 9497,61905
+
+
+165) O menor, o maior e a media dos valores de veiculos Fiat com ano de fabricacao maior que 2016.
+
+SELECT MIN(ValVei), MAX(ValVei), AVG(ValVei)
+    FROM emplacamento NATURAL JOIN veiculo
+                      NATURAL JOIN Modelo
+                      NATURAL JOIN Marca
+    WHERE AnoFab > 2016
+    AND NomMar = 'Fiat';
+
+
+MIN(VALVEI) MAX(VALVEI) AVG(VALVEI)
+----------- ----------- -----------
+
+
+       7000       11000  9142,85714
+
+168) O  nome das marcas sem veiculos em Patos de Minas. 
+
+SELECT CodMar, NomMar
+    FROM Marca NATURAL JOIN Modelo
+               NATURAL JOIN Veiculo
+               NATURAL JOIN Emplacamento
+    WHERE PlaVei NOT IN 
+                    (SELECT PlaVei
+                        FROM Localidade
+                        WHERE NomLoc = 'Patos de Minas')
+ORDER BY NomMar;
+
+
+
+n“o hﬂ linhas selecionadas
+
+ 170) O nome e o codigo das marcas com valores de automovel de ano 2018 menor que a media dos valores dos veiculos da marca BMW fabricados 2010.
+
+
+SELECT   Marca.CodMar, NomMar
+    FROM Marca inner join Modelo
+    natural join Veiculo
+    natural join Emplacamento
+    on anoFab = 2018 and
+     Valvei  < ( Select avg(ValVei) from
+		Marca inner join Modelo
+    		natural join Veiculo
+    		natural join Emplacamento
+		on  NomMar = ëBmwí and AnoFab = 2010 ); 
+
+
+
+    CODMAR NOMMAR
+---------- -----------------------------------
+         6 Chevrolet
+         7 Dodge
+         8 Mercedes-Benz
+         9 Mitsubishi
+        10 Bmw
+         1 Tesla
+         2 Fiat
+         3 Volkswagen
+         4 Ford
+         5 Toyota
+         6 Chevrolet
+
+10 linhas selecionadas.
+
+ 175) O codigo e o nome dos modelos Hyundai inexistentes em Patos de Minas.
+
+SELECT CodMod, NomMod
+    FROM Marca NATURAL JOIN Modelo
+               NATURAL JOIN Veiculo
+               NATURAL JOIN Emplacamento
+    WHERE NomMar = 'Hyundai'
+    AND CodLoc NOT IN (SELECT CodLoc
+                    FROM Localidade
+                    WHERE NomLoc = 'Patos de Minas')
+ORDER BY NomMod;
+
+n“o hﬂ linhas selecionadas
+
+
+-- 180) A media de veiculos emplacados em 2016 para frente por marca modelo.
+
+SELECT NomMar, NomMod, AVG(ValVei)
+    FROM Emplacamento NATURAL JOIN Veiculo
+                      NATURAL JOIN Modelo
+                      NATURAL JOIN Marca
+    WHERE DatIni >= '01012016'
+    GROUP BY NomMar, NomMod
+ORDER BY NomMar;
+
+NOMMAR                              NOMMOD
+----------------------------------- -----------------------------------
+AVG(VALVEI)
+-----------
+Fiat                                Cronos
+      10220
+
+Fiat                                Argo
+       9000
+
+Ford                                Up
+ 9258,33333
+
+
+NOMMAR                              NOMMOD
+----------------------------------- -----------------------------------
+AVG(VALVEI)
+-----------
+Ford                                Polo
+       9400
+
+Tesla                               Model X
+ 9035,29412
+
+Tesla                               Roadster
+ 10642,8571
+
+
+NOMMAR                              NOMMOD
+----------------------------------- -----------------------------------
+AVG(VALVEI)
+-----------
+Toyota                              Etios
+ 10833,3333
+
+Toyota                              Hilux
+      11500
+
+Volkswagen                          Edge
+       8940
+
+
+NOMMAR                              NOMMOD
+----------------------------------- -----------------------------------
+AVG(VALVEI)
+-----------
+Volkswagen                          Fusion
+ 6742,85714
+
+
+10 linhas selecionadas.
+
+185) O codigo e o nome das marcas inexistentes em BH.
+
+SELECT Marca.CodMar, NomMar
+    FROM Marca
+    WHERE NOT EXISTS
+        (SELECT *
+            FROM Modelo natural JOIN Veiculo
+            natural JOIN Emplacamento
+            natural JOIN local
+            where local.NomLoc = 'Belo Horizonte')
+ORDER BY NomMar;
+
+n“o hﬂ linhas selecionadas
+
+190) O codigo e o nome dos proprietarios de mais de um veiculo e entre pelo menos um da marca Fiat.
+ 
+SELECT CodPro, NomPro
+    FROM Proprietario NATURAL JOIN Emplacamento
+                      NATURAL JOIN Veiculo
+                      NATURAL JOIN Modelo
+                      NATURAL JOIN Marca
+    WHERE NomMar = 'Fiat'
+    GROUP BY CodPro, NomPro
+    HAVING COUNT(PlaVei) > 1
+ORDER BY NomPro;
+
+
+    CODPRO NOMPRO
+---------- -----------------------------------
+        18 Fabio Melo
+        20 Lucas Mendes
+        13 Marina Rezende
+
+195) O codigo e o nome das marcas de veiculos de Juiz de Fora.
+
+SELECT CodMar, NomMar
+    FROM Marca NATURAL JOIN Modelo
+               NATURAL JOIN Veiculo
+               NATURAL JOIN Emplacamento
+               NATURAL JOIN Localidade
+    WHERE NomLoc = 'Juiz de Fora'
+ORDER BY NomMar;
+
+    CODMAR NOMMAR
+---------- -----------------------------------
+         2 Fiat
+         2 Fiat
+         4 Ford
+         1 Tesla
+         1 Tesla
+         3 Volkswagen
+
+6 linhas selecionadas.
+
+200) A placa do veiculo de menor valor em Belo Horizonte.
+	SELECT PlaVei
+    	FROM Emplacamento NATURAL JOIN Localidade
+    	WHERE NomLoc = 'Belo Horizonte'
+   	 AND ValVei IN(SELECT MIN(ValVei)
+                    FROM Emplacamento)
+	ORDER BY PlaVei;
+
+n“o hﬂ linhas selecionadas

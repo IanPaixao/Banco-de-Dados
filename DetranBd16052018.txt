@@ -1,0 +1,844 @@
+Sistem Detran Feito Pelos alunos : Ian Rodrigues, Diego Setúbal, Rubens Campos e Tomás Antonio
+matrículas dos respectivos : 561290, 561325, 522376, 524533
+
+1)Create tables:
+
+user: ianrodrigues@orcl
+
+create table marca(codmar int not null, nommar char(35) not null, constrai
+nt PK_marca primary key (codmar));
+
+Tabela criada.
+
+SQL> desc marca
+ Nome                                      Nulo?    Tipo
+ ----------------------------------------- -------- ----------------------------
+
+ CODMAR                                    NOT NULL NUMBER(38)
+ NOMMAR                                    NOT NULL CHAR(35)
+
+
+create table modelo (codmod int not nulll , nommod  char (35) not null, codmar int not null, contraint PK_modelo primary key (codmod) , constraint FK_modelo_marca foreign key references marca);
+
+Tabela criada.
+
+Nome                                      Nulo?    Tipo
+ ----------------------------------------- -------- ----------------------------
+
+ CODMOD                                    NOT NULL NUMBER(38)
+ NOMMOD                                    NOT NULL CHAR(35)
+ CODMAR                                    NOT NULL NUMBER(38)
+
+
+user: diegosetubal@orcl
+
+Create table Emplacamento(PlaVei char(7) not null, DatIni Date not null, CodPro int not null, CodLoc int not null, DatFim Date, valvei number(10,2) not null, constraint PK_Emplacamento primary key(PlaVei, DatIni), constraint FK_Emplacamento_Veiculo foreign key(PlaVei) references Veiculo, constraint FK_Emplacamento_Proprietario foreign key(CodPro) references Proprietario, constraint FK_Emplacamento_Localidade foreign key(CodLoc) references Localidade);
+
+Tabela criada.
+
+ Nome                                      Nulo?    Tipo
+ ----------------------------------------- -------- ----------------------------
+
+ PLAVEI                                    NOT NULL CHAR(7)
+ DATINI                                    NOT NULL DATE
+ CODPRO                                    NOT NULL NUMBER(38)
+ CODLOC                                    NOT NULL NUMBER(38)
+ DATFIM                                             DATE
+ VALVEI                                    NOT NULL NUMBER(10,2)
+
+
+
+user: tomasantonio@orcl
+
+create table veiculo(Plavei char(7) not null, anofab number not null, codmod int not null, constraint PK_veiculo primary key (plavei), constraint FK_modelo  foreing key (codmod) references modelo);
+
+Tabela criada.
+
+ Nome                                      Nulo?    Tipo
+ ----------------------------------------- -------- ----------------------------
+
+ PLAVEI                                    NOT NULL CHAR(7)
+ ANOFAB                                    NOT NULL NUMBER(38)
+ CODMOD                                    NOT NULL NUMBER(38)
+
+
+user: rubenscampos@orcl
+
+create table proprietario(codpro int not null, nompro char (35) not null, constraint PK_proprietario primary key (codpro));
+
+Tabela criada.
+
+ Nome                                      Nulo?    Tipo
+ ----------------------------------------- -------- ----------------------------
+
+ CODPRO                                    NOT NULL NUMBER(38)
+ NOMPRO                                    NOT NULL CHAR(35)
+
+
+
+create table localidade(codloc int not null, nomloc char(35) not null, constrain
+t PK_localidade primary key (codloc));
+
+
+
+Tabela criada.
+
+ Nome                                      Nulo?    Tipo
+ ----------------------------------------- -------- ----------------------------
+
+ CODLOC                                    NOT NULL NUMBER(38)
+ NOMLOC                                    NOT NULL CHAR(35)
+
+
+2)inserts:
+
+ insert into rubenscampos.localidade values ('1', 'Belo Horizonte');
+
+1 linha criada.
+
+
+
+ insert into rubenscampos.localidade values ('2', 'Ouro Preto');
+
+1 linha criada.
+
+
+
+ insert into rubenscampos.localidade values ('3', 'Juiz de Fora');
+
+1 linha criada.
+
+
+S insert into rubenscampos.localidade values ('4', 'Mariana');
+
+1 linha criada.
+
+
+ insert into rubenscampos.localidade values ('5', 'São João Del Rei');
+
+1 linha criada.
+
+commit;
+
+
+insert into ianrodrigues.marca values (1, 'Tesla');    
+commit; 
+ 
+insert into ianrodrigues.marca values (2, 'Fiat');   
+commit; 
+    
+insert into ianrodrigues.marca values (3, 'Ford');
+commit; 
+       
+insert into ianrodrigues.marca values (4, 'Volkswagen');
+commit; 
+       
+insert into ianrodrigues.marca values (5, 'Toyota');
+commit; 
+ 
+insert into ianrodrigues.marca values (6, 'Chevrolet');
+commit; 
+ 
+insert into ianrodrigues.marca values (7, 'Dodge');
+commit; 
+       
+insert into ianrodrigues.marca values (8, 'Mercedes-Benz');
+commit; 
+       
+insert into ianrodrigues.marca values (9, 'Mitsubushi');
+commit; 
+ 
+insert into ianrodrigues.marca values (10, 'Bmw');
+commit;  
+
+insert into ianrodrigues.modelo values (1, Model X, 1); 
+commit;  
+ 
+insert into ianrodrigues.modelo values (2, Roadster, 1);
+commit; 
+
+insert into ianrodrigues.modelo values (3, Cronos, 2);
+commit; 
+
+insert into ianrodrigues.modelo values (4, Argo, 2);
+commit; 
+
+insert into ianrodrigues.modelo values (5, Fusion, 3);
+commit;
+ 
+insert into ianrodrigues.modelo values (6, Edge, 3);
+commit; 
+insert into ianrodrigues.modelo values (7, Polo, 4);
+commit;
+ 
+insert into ianrodrigues.modelo values (8, Up, 4);
+commit; 
+
+insert into ianrodrigues.modelo values (9, Hilux, 5);
+commit; 
+insert into ianrodrigues.modelo values (10, Etios, 5); 
+commit; 
+
+insert into ianrodrigues.modelo values (11, Cruze, 6);
+commit; 
+
+insert into ianrodrigues.modelo values (12, Prisma, 6);
+commit; 
+
+insert into ianrodrigues.modelo values (13, Ram, 7);
+commit; 
+
+insert into ianrodrigues.modelo values (14, Charger, 7);
+commit;
+ 
+insert into ianrodrigues.modelo values (15, Classe A, 8);
+commit; 
+
+insert into ianrodrigues.modelo values (16, Classe B, 8);
+commit; 
+
+insert into ianrodrigues.modelo values (17, Asx, 9);
+commit;
+ 
+insert into ianrodrigues.modelo values (18, Lancer, 9);
+commit;
+ 
+insert into ianrodrigues.modelo values (19, X5, 10);
+commit;
+ 
+insert into ianrodrigues.modelo values (20, X6, 10);      
+commit;                                                  
+
+
+
+Insert into tomasantonio.veiculo values ('KJO7607', 2018, 2);
+commit;
+
+Insert into tomasantonio.veiculo values ('MXZ6407', 2018, 1);
+commit;
+
+Insert into tomasantonio.veiculo values ('HWC0000', 2018, 3);
+commit;
+
+Insert into tomasantonio.veiculo values ('LWL7060', 2018, 4);
+commit;
+
+Insert into tomasantonio.veiculo values ('HCS5776', 2018, 5);
+commit;
+
+Insert into tomasantonio.veiculo values ('INS3972', 2018, 6);
+commit;
+
+Insert into tomasantonio.veiculo values ('BAS2173', 2018, 7);
+commit;
+
+Insert into tomasantonio.veiculo values ('JKC1332', 2018, 8);
+commit;
+
+Insert into tomasantonio.veiculo values ('JSC6462', 2018, 9);
+commit;
+
+Insert into tomasantonio.veiculo values ('MOH6084', 2018, 10);
+commit;
+
+Insert into tomasantonio.veiculo values ('MPI5786', 2018, 1);
+commit;
+
+Insert into tomasantonio.veiculo values ('JMF5472', 2018, 2);
+commit;
+
+Insert into tomasantonio.veiculo values ('HOX2343', 2018, 3);
+commit;
+
+Insert into tomasantonio.veiculo values ('MUN0849', 2018, 11);
+commit;
+
+Insert into tomasantonio.veiculo values ('KGN3990', 2018, 40);
+commit;
+
+Insert into tomasantonio.veiculo values ('MOY0164', 2018, 37);
+commit;
+
+Insert into tomasantonio.veiculo values ('MVA3937', 2018, 30);
+commit;
+
+Insert into tomasantonio.veiculo values ('HNH8648', 2018, 25);
+commit;
+
+Insert into tomasantonio.veiculo values ('JYT8966', 2018, 27);
+commit;
+
+Insert into tomasantonio.veiculo values ('HTZ0679', 2018, 29);
+commit;
+
+Insert into tomasantonio.veiculo values ('BJB0564', 2018, 35);
+commit;
+
+Insert into tomasantonio.veiculo values ('KJO7608', 2018, 28);
+commit;
+
+Insert into tomasantonio.veiculo values ('MXZ6408', 2018, 17);
+commit;
+
+Insert into tomasantonio.veiculo values ('HWC0001', 2018, 18);
+commit;
+
+Insert into tomasantonio.veiculo values ('LWL7061', 2018, 19);
+commit;
+
+Insert into tomasantonio.veiculo values ('MSJ7284', 2018, 1);
+commit;
+
+Insert into tomasantonio.veiculo values ('MZU9197', 2018, 1);
+commit;
+
+Insert into tomasantonio.veiculo values ('LVK4834', 2018, 1);
+commit;
+
+Insert into tomasantonio.veiculo values ('JGP2280', 2018, 1);
+commit;
+
+Insert into tomasantonio.veiculo values ('KJG3271', 2018, 1);
+commit;
+
+Insert into tomasantonio.veiculo values ('HCS5777', 2018, 1);
+commit;
+
+Insert into tomasantonio.veiculo values ('INS3973', 2018, 2);
+commit;
+
+Insert into tomasantonio.veiculo values ('BAS2174', 2018, 3);
+commit;
+
+Insert into tomasantonio.veiculo values ('JKC1333', 2018, 4);
+commit;
+
+Insert into tomasantonio.veiculo values ('JSC6463', 2018, 5);
+commit;
+
+Insert into tomasantonio.veiculo values ('MOH6085', 2018, 6);
+commit;
+
+Insert into tomasantonio.veiculo values ('MPI5787', 2018, 7);
+commit;
+
+insert into diegosetubal.emplacamento values ('KJO7607', '01012017', 1, 1, null, 10000.00);
+commit;
+
+insert into diegosetubal.emplacamento values('MXZ6407','01012017,20,1,'10062017', 10000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('MXZ6407', '100062017', 10, 1, null, 5000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('HWC0000', '01012017', 15, 2, '01072017', 10000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('HWC0000', '01072017', 11, 2, null, 8200.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('LWL7060', '10012017', 13, 3, '01102017', 10000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('LWL7060', '01102017', 21, 3, null, 7000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('HCS5776', '20052017', 11, 4, '20082017', 10000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('HCS5776', '01012017', 17, 5, null, 5000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('INS3972', '05052015', 7, 1, '10102017', 10000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('INS3972', '10102017', 6, 4, null, 2000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('BAS2173', '20012017', 14, 5, '30032017', 10000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('BAS2173', '30032017', 15, 1, null, 6000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('JKC1332', '30032016', 3, 1, '05052016', 11000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('JKC1332', '05052016', 7, 2, null, 6000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('JSC6462', '03032016', 8, 3, '09062017', 15000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('JSC6462', '09062017', 9, 3, null, 6000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('MOH6084', '20012017', 14, 5, '30032016', 10200.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('MOH6084', '30032016', 15, 1, null, 6000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('MPI5786', '02012017', 7, 2, '30052017', 10000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('MPI5786', '30052017', 10, 3, null, 7000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('JMF5472', '10022017', 18, 1, '30052017', 12500.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('JMF5472', '30052017', 20, 1, null, 8500.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('HOX2343', '10022017', 12, 2, '30052017', 15500.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('HOX2343', '30052017', 13, 2, null, 9500.00);
+commit;
+
+
+insert into diegosetubal.emplacamento values ('MUN0849', '10022017', 2, 2, '30052017', 14500.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('MUN0849', '30052017', 3, 2, null, 8500.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('KGN3990', '10022017', 4, 2, '30052017', 10500.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('KGN3990', '30052017', 5, 2, null, 900.00);
+commit;
+
+
+insert into diegosetubal.emplacamento values ('MOY0164', '10022017', 6, 2, '30052017', 16500.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('MOY0164', '30052017', 3, 2, null, 8500.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('HOX2343', '10022017', 9, 2, '30052017', 13500.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('HOX2343', '30052017', 11, 2, null, 9300.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('KJO7607', '10012017', 13, 1, null, 9000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('MVA3937', '21012017', 14, 1, null, 10200.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('HNH8648', '31012017', 15, 2, null, 10050.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('JYT8966', '05012017', 16, 2, null, 10250.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('HTZ0679', '02012017', 7, 5, null, 7500.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('BJB0564', '05012017', 6, 5, null, 8400.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('KJO7608', '07012017', 5, 1, null, 5500.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('MXZ6408', '08012017', 4, 5, null, 6300.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('HWC0001', '09012017', 18, 1, null, 7000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('LWL7061', '03012017', 18, 1, null, 7000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('MSJ7284', '06062017', 18, 1, null, 7000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('MZU9197', '05052017', 18, 1, null, 7000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('LVK4834', '14122017', 1, 1, null, 7000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('JGP2280', '10072017', 5, 1, null, 5000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('KJG3271', '05092017', 18, 1, null, 6000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('HCS5777', '02042017', 18, 1, null, 8000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('INS3973', '04022017', 18, 1, null, 10000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('BAS2174', '06032017', 18, 1, null, 10000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('JKC1333', '08042017', 18, 1, null, 9000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('JSC6463', '02022017', 18, 1, null, 4500.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('MOH6085', '01012017', 18, 1, null, 5700.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('MPI5787', '10022017', 18, 2, null, 7800.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('JMF5473', '17032017', 18, 4, null, 9000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('HOX2344', '18072017', 18, 1, null, 8000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('MUN0850', '18082017', 2, 5, null, 9000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('KGN3991', '10072017', 4, 5, null, 7000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('MOY0165', '15072017', 3, 5, null, 8000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('MVA3938', '28072017', 5, 2, null, 8000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('HNH8649', '10112017', 20, 3, null, 10000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('JYT8967', '10122017', 20, 3, null, 10000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('HTZ0680', '20122016', 20, 2, null, 12000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('BJB0565', '20112017', 20, 3, null, 13000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('KJO7609', '13122017', 20, 1, null, 14000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('MXZ6409', '13022016', 20, 4, null, 15000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('HWC0002', '07022017', 20, 5, null, 16000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('LWL7062', '03032017', 20, 2, null, 17000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('HCS5778', '15052017', 20, 3, null, 18000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('INS3974', '12062017', 20, 2, null, 19000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('BAS2175', '11112016', 20, 1, null, 10000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('JKC1334', '01012018', 20, 1, null, 11000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('MVU3481', '01012018', 4, 2, '16052018', 12000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('MVU3481', '16052018', 5, 2, null, 8500.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('DDC7334', '10012018', 1, 1, '16052018', 11000.00);
+commit;
+
+insert into diegosetubal.emplacamento values ('DDC7334', '16052018', 2, 1, null, 9000.00);
+commit;
+
+3)selects :
+
+select * from ianrodrigues.marca;
+
+    CODMAR NOMMAR
+---------- -----------------------------------
+         6 Chevrolet
+         7 Dodge
+         8 Mercedes-Benz
+         9 Mitsubishi
+        10 Bmw
+         1 Tesla
+         2 Fiat
+         3 Volkswagen
+         4 Ford
+         5 Toyota
+
+10 linhas selecionadas.
+
+select * from ianrodrigues.modelo;
+
+    CODMOD NOMMOD                                  CODMAR
+---------- ----------------------------------- ----------
+        11 Cruze                                        6
+        12 Prisma                                       6
+        13 Ram                                          7
+        14 Charger                                      7
+        15 Classe A                                     8
+        16 Classe B                                     8
+        17 Asx                                          9
+        18 Lancer                                       9
+        19 X5                                          10
+        20 X6                                          10
+        21 Model 3                                      1
+
+    CODMOD NOMMOD                                  CODMAR
+---------- ----------------------------------- ----------
+        22 Model S                                      1
+        23 Energy                                       1
+        24 Uno                                          2
+        25 Mobi                                         2
+        26 KA                                           3
+        27 KA SEDAN                                     3
+        28 Fox                                          4
+        29 Gol                                          4
+        30 Corolla                                      5
+        31 Pirus Hybrid                                 5
+        32 Onix                                         6
+
+    CODMOD NOMMOD                                  CODMAR
+---------- ----------------------------------- ----------
+        33 Cruze                                        6
+        34 Jorney                                       7
+        35 Durango                                      7
+        36 Classe E                                     8
+        37 CLA                                          8
+        38 L200                                         9
+        39 Pajero                                       9
+        40 X7                                          10
+        41 X8                                          10
+         1 Model X                                      1
+         2 Roadster                                     1
+
+    CODMOD NOMMOD                                  CODMAR
+---------- ----------------------------------- ----------
+         3 Cronos                                       2
+         4 Argo                                         2
+         5 Fusion                                       3
+         6 Edge                                         3
+         7 Polo                                         4
+         8 Up                                           4
+         9 Hilux                                        5
+        10 Etios                                        5
+
+41 linhas selecionadas.
+
+select * from tomasantonio.veiculo;
+
+PLAVEI      ANOFAB     CODMOD
+------- ---------- ----------
+HCS5777       2018          1
+INS3973       2018          2
+BAS2174       2018          3
+JKC1333       2018          4
+JSC6463       2018          5
+MOH6085       2018          6
+MPI5787       2018          7
+JMF5473       2018          8
+HOX2344       2018          9
+MUN0850       2018         10
+KGN3991       2018          1
+
+PLAVEI      ANOFAB     CODMOD
+------- ---------- ----------
+MOY0165       2018          2
+MVA3938       2018          3
+HNH8649       2018          4
+JYT8967       2018          5
+HTZ0680       2018          6
+BJB0565       2018          7
+KJO7609       2018          8
+MXZ6409       2018          9
+HWC0002       2018         10
+LWL7062       2018          1
+HCS5778       2018          1
+
+PLAVEI      ANOFAB     CODMOD
+------- ---------- ----------
+INS3974       2018          2
+BAS2175       2018          1
+JKC1334       2018          1
+MSJ7284       2018          1
+MZU9197       2018          1
+LVK4834       2018          1
+JGP2280       2018          1
+KJG3271       2018          1
+MVU3481       2018          2
+DDC7334       2018          3
+KJO7607       2010          1
+
+PLAVEI      ANOFAB     CODMOD
+------- ---------- ----------
+MXZ6407       2010          2
+HWC0000       2015          3
+LWL7060       2011          4
+HCS5776       2012          5
+INS3972       2012          6
+BAS2173       2014          7
+JKC1332       2017          8
+MOH6084       2017          1
+MPI5786       2018          2
+JMF5472       2011          3
+HOX2343       2011          3
+
+PLAVEI      ANOFAB     CODMOD
+------- ---------- ----------
+MUNO849       2081          4
+KGN3990       2018          5
+MOY0164       2015          6
+MVA3937       2018          7
+HNH8648       2017          8
+JYT9866       2018          9
+HTZ0679       2016         10
+BJB0564       2017          1
+KJO7608       2018          8
+MXZ6408       2018          5
+HWC0001       2017          4
+
+PLAVEI      ANOFAB     CODMOD
+------- ---------- ----------
+LWL7061       2018          1
+
+56 linhas selecionadas.
+
+
+select * from rubenscampos.localidade;
+
+    CODLOC NOMLOC
+---------- -----------------------------------
+         1 Belo Horizonte
+         2 Ouro Preto
+         3 Juiz de Fora
+         4 Mariana
+         5 São João Del Rei
+
+
+ select * from rubenscampos.proprietario;
+
+    CODPRO NOMPRO
+---------- -----------------------------------
+         1 Ian Rodrigues
+         2 Rubens Campos
+         3 Tomas Antonio
+         4 Diego Setubal
+         5 Ana Luiza
+         6 Julia Bicalho
+         7 Maria Regina
+         8 Vivian Cotta
+         9 Talita Cotta
+        10 Maria Helena
+        11 Tiago Amorim
+
+    CODPRO NOMPRO
+---------- -----------------------------------
+        12 Filipe Igor
+        13 Marina Rezende
+        14 Ludmila Veloso
+        15 Daniele Napoles
+        16 Andre Costa
+        17 Otavio Melo
+        18 Fabio Melo
+        19 Denia Maria
+        20 Lucas Mendes
+
+20 linhas selecionadas.
+
+select * from diegosetubal.emplacamento;
+
+PLAVEI  DATINI       CODPRO     CODLOC DATFIM       VALVEI
+------- -------- ---------- ---------- -------- ----------
+KJO7607 10/01/17         13          1                9000
+MVA3937 21/01/17         14          1               10200
+HNH8648 31/01/17         15          2               10050
+HTZ0679 02/01/17          7          5                7500
+BJB0564 05/01/17          6          5                8400
+KJO7608 07/01/17          5          1                5500
+MXZ6408 08/01/17          4          5                6300
+HWC0001 09/01/17         18          1                7000
+LWL7061 03/01/17         18          1                7000
+MSJ7284 06/06/17         18          1                7000
+MZU9197 05/05/17         18          1                7000
+
+PLAVEI  DATINI       CODPRO     CODLOC DATFIM       VALVEI
+------- -------- ---------- ---------- -------- ----------
+LVK4834 14/12/17          1          1                7000
+JGP2280 10/07/17          5          1                5000
+KJG3271 05/09/17         18          1                6000
+HCS5777 02/04/17         18          1                8000
+INS3973 04/02/17         18          1               10000
+BAS2174 06/03/17         18          1               10000
+JKC1333 08/04/17         18          1                9000
+JSC6463 02/02/17         18          1                4500
+MOH6085 01/01/17         18          1                5700
+MPI5787 10/02/17         18          2                7800
+JMF5473 17/03/17         18          4                9000
+
+PLAVEI  DATINI       CODPRO     CODLOC DATFIM       VALVEI
+------- -------- ---------- ---------- -------- ----------
+HOX2344 18/07/17         18          1                8000
+MUN0850 18/08/17          2          5                9000
+KGN3991 10/07/17          4          5                7000
+MOY0165 15/07/17          3          5                8000
+MVA3938 28/07/17          5          2                8000
+HNH8649 10/11/17         20          3               10000
+JYT8967 10/12/17         20          3               10000
+HTZ0680 20/12/16         20          2               12000
+BJB0565 20/11/17         20          3               13000
+KJO7609 13/12/17         20          1               14000
+MXZ6409 13/02/16         20          4               15000
+
+PLAVEI  DATINI       CODPRO     CODLOC DATFIM       VALVEI
+------- -------- ---------- ---------- -------- ----------
+HWC0002 07/02/17         20          5               16000
+LWL7062 03/03/17         20          2               17000
+HCS5778 15/05/17         20          3               18000
+INS3974 12/06/17         20          2               19000
+BAS2175 11/11/16         20          1               10000
+JKC1334 01/01/18         20          1               11000
+MVU3481 01/01/18          4          2 16/05/18      12000
+MVU3481 16/05/18          5          2                8500
+DDC7334 10/01/18          1          1 16/05/18      11000
+DDC7334 16/05/18          2          1                9000
+KJO7607 01/01/17          1          1               10000
+
+PLAVEI  DATINI       CODPRO     CODLOC DATFIM       VALVEI
+------- -------- ---------- ---------- -------- ----------
+HWC0000 01/01/17         15          2 01/07/17      10000
+HWC0000 01/07/17         11          2                8200
+LWL7060 10/01/17         13          3 01/10/17      10000
+INS3972 05/05/15          7          1 10/10/17      10000
+INS3972 10/10/17          6          4                2000
+JKC1332 30/03/16          3          1 05/05/16      11000
+JKC1332 05/05/16          7          2                6000
+BAS2173 20/01/17         14          5 30/03/17      10000
+BAS2173 30/03/17         15          1                6000
+MOH6084 20/01/17         14          5 30/03/16      10200
+MOH6084 30/03/16         15          1                6000
+
+PLAVEI  DATINI       CODPRO     CODLOC DATFIM       VALVEI
+------- -------- ---------- ---------- -------- ----------
+MPI5786 02/01/17          7          2 30/05/17      10000
+MPI5786 30/05/17         10          3                7000
+JMF5472 10/02/17         18          1 30/05/17      12500
+JMF5472 30/05/17         20          1                8500
+HOX2343 10/02/17         12          2 30/05/17      15500
+HOX2343 30/05/17         13          2                9500
+HCS5776 20/05/17         11          4 20/08/17      10000
+HCS5776 01/01/17         17          5                5000
+KGN3990 10/02/17          4          2 30/05/17      10500
+KGN3990 30/05/17          5          2                 900
+MOY0164 10/02/17          6          2 30/05/17      16500
+
+PLAVEI  DATINI       CODPRO     CODLOC DATFIM       VALVEI
+------- -------- ---------- ---------- -------- ----------
+MOY0164 30/05/17          3          2                8500
+
+67 linhas selecionadas.
