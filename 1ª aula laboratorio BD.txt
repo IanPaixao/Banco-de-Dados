@@ -1,0 +1,160 @@
+Ian Rodrigues Dos Reis Paixão 561290 21/03/18
+ uma foreing key sempre refencia uma private key de outa tabela
+1)
+  Create table Pais
+  (codPai int not null,
+  NomPai char(35) not null,
+  Constraint PK_Pais primary key (CodPai)); 
+
+2)
+  Desc Pais
+
+  insert into Pais
+  values (1,'Brasil'); 
+
+  x
+  insert into Pais
+  values (1,'Brasil');
+
+
+  Select *
+  from Pais;
+
+
+  commit;
+
+
+  Select *
+  from Pais;
+
+
+  insert into Pais
+  values (3,'Chile');
+
+
+  Select *
+  from Pais;
+
+
+  rollback;
+
+
+  Select *
+  from Pais;
+
+
+  insert into Pais
+  values (2,'Argenina');
+ 
+  Select *
+  from Pais;
+
+  insert into Pais
+  values (4,'Uruguai');
+
+  Select *
+  from Pais;
+  
+  insert into Pais
+  values (5,'Estados Unidos da America');
+
+  Select *
+  from Pais;
+
+  insert into Pais
+  values (6,'Mexico');
+
+  Select *
+  from Pais;
+  
+  insert into Pais 
+  values (7,'Canadá');
+
+  Select *
+  from Pais;
+  
+  commit;
+ 
+  Select *
+  from Pais
+  order by NomPai;
+
+  Select *
+  from Pais
+  order by NomPai desc;
+   
+  update Pais
+  set NomPai = 'troquei'
+  where CodPai = 1;
+
+  Select *
+  from Pais;
+  
+  rollback;
+
+  Select *
+  from Pais
+
+  delete
+  from Pais
+  where CodPai = 1;
+  
+  Select *
+  from Pais;
+  
+  rollback;
+
+  Select *
+  from Pais;
+
+  create table Autor
+  (CodAut int not null,
+  NomAut char(35) not null,
+  CodPai int not null,
+  constraint PK_Autor primary key (CodAut),
+  constraint FK_Autor_Pais
+  foreign key (CodPai)
+  references Pais);
+  
+  desc Autor;
+
+  insert into Autor values
+  (1, 'Machado de Assis', 1);
+
+  commit;
+
+  x insert into Autor values
+  (1, 'José de Alencar', 1);
+
+  x insert into Autor values
+  (2, 'José de Alencar');
+
+  x insert into Autor values
+  (1, 'José de Alencar', 99);
+
+  x insert into Autor values
+  (4);
+
+  insert into Autor values
+  (2, 'José de Alencar', 1);
+
+  commit;
+ 
+  Select * 
+  from Autor;
+  
+  x 
+  drop table Pais;
+  
+  drop table Autor;
+  
+  drop table Pais;
+
+
+   
+    
+
+  
+   
+
+  
